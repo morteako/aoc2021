@@ -65,6 +65,7 @@ executables:
     source-dirs:      src/server
     main:             Main.hs
     dependencies:
+      # - app
       - servant-server
       - wai
       - warp
