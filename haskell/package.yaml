@@ -57,6 +57,14 @@ dependencies:
   - template-haskell
 
 executables:
-  haskell:
-    source-dirs:      src
+  app:
+    source-dirs:      src/app
     main:             Main.hs
+
+  server:
+    source-dirs:      src/server
+    main:             Main.hs
+    dependencies:
+      - servant-server
+      - wai
+      - warp

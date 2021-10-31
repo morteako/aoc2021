@@ -17,12 +17,12 @@ build-type:     Simple
 extra-source-files:
     README.md
 
-executable haskell
+executable app
   main-is: Main.hs
   other-modules:
       Paths_aoc2021
   hs-source-dirs:
-      src
+      src/app
   default-extensions:
       OverloadedStrings
       ScopedTypeVariables
@@ -66,4 +66,58 @@ executable haskell
     , template-haskell
     , text
     , unordered-containers
+  default-language: Haskell2010
+
+executable server
+  main-is: Main.hs
+  other-modules:
+      Paths_aoc2021
+  hs-source-dirs:
+      src/server
+  default-extensions:
+      OverloadedStrings
+      ScopedTypeVariables
+      TupleSections
+      ViewPatterns
+      PatternSynonyms
+      DerivingVia
+      DeriveFunctor
+      DeriveTraversable
+      DeriveFoldable
+      DeriveGeneric
+      GeneralizedNewtypeDeriving
+      MultiWayIf
+      GADTs
+      InstanceSigs
+      LambdaCase
+      NamedFieldPuns
+      RankNTypes
+      TypeApplications
+      TypeOperators
+  build-depends:
+      base >=4.7 && <5
+    , bytestring
+    , comonad
+    , containers
+    , dotenv
+    , extra
+    , foldl
+    , groupBy
+    , haskell-src-meta
+    , http-conduit
+    , lens
+    , linear
+    , megaparsec
+    , memoize
+    , mtl
+    , optparse-applicative
+    , ordered-containers
+    , safe
+    , servant-server
+    , split
+    , template-haskell
+    , text
+    , unordered-containers
+    , wai
+    , warp
   default-language: Haskell2010
