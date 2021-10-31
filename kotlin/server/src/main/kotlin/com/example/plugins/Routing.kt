@@ -7,6 +7,8 @@ import io.ktor.response.*
 import io.ktor.request.*
 import kotlin.system.measureTimeMillis
 
+import aoc2021.app.Testy
+
 fun Application.configureRouting() {
 
     // Starting point for a Ktor app:
@@ -23,6 +25,7 @@ fun Application.configureRouting() {
 }
 
 fun measureDay(day:Int):Long {
+    Testy.test()
     return day * measureTimeMillis {
         println(day)
     }
