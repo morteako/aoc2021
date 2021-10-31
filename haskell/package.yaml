@@ -1,0 +1,62 @@
+name:                aoc2021
+version:             0.1.0.0
+#synopsis:
+#description:
+homepage:            https://github.com/githubuser/aoc2021#readme
+license:             BSD3
+author:              Morten Kolstad
+maintainer:          example@example.com
+copyright:           2021 Morten Kolstad
+category:            Web
+extra-source-files:
+- README.md
+
+default-extensions:
+  - OverloadedStrings
+  - ScopedTypeVariables
+  - TupleSections
+  - ViewPatterns
+  - PatternSynonyms
+  - DerivingVia
+  - DeriveFunctor
+  - DeriveTraversable
+  - DeriveFoldable
+  - DeriveGeneric
+  - GeneralizedNewtypeDeriving
+  - MultiWayIf
+  - GADTs
+  - InstanceSigs
+  - LambdaCase
+  - NamedFieldPuns
+  - RankNTypes
+  - TypeApplications
+  - TypeOperators
+
+dependencies:
+  - base >= 4.7 && < 5
+  - http-conduit
+  - lens
+  - bytestring
+  - containers
+  - extra
+  - mtl
+  - megaparsec
+  - dotenv
+  - foldl
+  - text
+  - ordered-containers
+  - unordered-containers
+  - optparse-applicative
+  - safe
+  - split
+  - groupBy
+  - memoize
+  - linear
+  - comonad
+  - haskell-src-meta
+  - template-haskell
+
+executables:
+  haskell:
+    source-dirs:      src
+    main:             Main.hs

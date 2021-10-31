@@ -1,0 +1,69 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.4.
+--
+-- see: https://github.com/sol/hpack
+
+name:           aoc2021
+version:        0.1.0.0
+category:       Web
+homepage:       https://github.com/githubuser/aoc2021#readme
+author:         Morten Kolstad
+maintainer:     example@example.com
+copyright:      2021 Morten Kolstad
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+
+executable haskell
+  main-is: Main.hs
+  other-modules:
+      Paths_aoc2021
+  hs-source-dirs:
+      src
+  default-extensions:
+      OverloadedStrings
+      ScopedTypeVariables
+      TupleSections
+      ViewPatterns
+      PatternSynonyms
+      DerivingVia
+      DeriveFunctor
+      DeriveTraversable
+      DeriveFoldable
+      DeriveGeneric
+      GeneralizedNewtypeDeriving
+      MultiWayIf
+      GADTs
+      InstanceSigs
+      LambdaCase
+      NamedFieldPuns
+      RankNTypes
+      TypeApplications
+      TypeOperators
+  build-depends:
+      base >=4.7 && <5
+    , bytestring
+    , comonad
+    , containers
+    , dotenv
+    , extra
+    , foldl
+    , groupBy
+    , haskell-src-meta
+    , http-conduit
+    , lens
+    , linear
+    , megaparsec
+    , memoize
+    , mtl
+    , optparse-applicative
+    , ordered-containers
+    , safe
+    , split
+    , template-haskell
+    , text
+    , unordered-containers
+  default-language: Haskell2010
