@@ -1,13 +1,12 @@
 package com.example.plugins
 
-import io.ktor.routing.*
-import io.ktor.http.*
+import aoc2021.app.Testy
 import io.ktor.application.*
+import io.ktor.http.*
 import io.ktor.response.*
-import io.ktor.request.*
+import io.ktor.routing.*
 import kotlin.system.measureTimeMillis
 
-import aoc2021.app.Testy
 
 fun Application.configureRouting() {
 
@@ -19,12 +18,12 @@ fun Application.configureRouting() {
             day?.let {
                 val res = measureDay(day)
                 call.respondText("$res")
-            } ?: call.respondText(status = HttpStatusCode.NotAcceptable, provider = {"Invalid day"})
+            } ?: call.respondText(status = HttpStatusCode.NotAcceptable, provider = { "Invalid day" })
         }
     }
 }
 
-fun measureDay(day:Int):Long {
+fun measureDay(day: Int): Long {
     Testy.test()
     return day * measureTimeMillis {
         println(day)
