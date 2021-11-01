@@ -23,8 +23,6 @@ library
       Funcs
       Input
       Utils
-  other-modules:
-      Paths_aoc2021
   hs-source-dirs:
       src/lib
   default-extensions:

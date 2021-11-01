@@ -58,6 +58,9 @@ dependencies:
 
 library:
     source-dirs: src/lib
+    when:
+      - condition: false
+        other-modules: Paths_aoc2021
 
 executables:
   app:
@@ -65,6 +68,9 @@ executables:
     main:             Main.hs
     dependencies:
       - aoc2021
+    when:
+      - condition: false
+        other-modules: Paths_app
 
 tests:
   test:
