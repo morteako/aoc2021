@@ -19,11 +19,9 @@ extra-source-files:
 
 library
   exposed-modules:
-      CmdArgs
       Day.Day01
       Input
       Lib
-      Main
       Utils
   other-modules:
       Paths_aoc2021
@@ -77,6 +75,7 @@ library
 executable app
   main-is: Main.hs
   other-modules:
+      CmdArgs
       Paths_aoc2021
   hs-source-dirs:
       src/app
