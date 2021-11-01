@@ -65,12 +65,3 @@ executables:
     main:             Main.hs
     dependencies:
       - aoc2021
-
-  server:
-    source-dirs:      src/server
-    main:             Main.hs
-    dependencies:
-      - aoc2021
-      - servant-server
-      - wai
-      - warp
