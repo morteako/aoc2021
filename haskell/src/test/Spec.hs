@@ -13,22 +13,18 @@ import Utils
 answers :: IntMap (String, String)
 answers =
   Map.fromList
-    [ 1 =: ("802011", "248607374")
+    [ 1 =: (,) "802011" "248607374"
     ]
-
-makePartString :: Int -> String
-makePartString part = "Part " <> show part <> " is correct"
 
 main :: IO ()
 main = hspec $ do
-  describe "" $ do
-    let funcsAndAnswers = Map.intersectionWith (,) Funcs.funcs answers
-    flip Map.traverseWithKey funcsAndAnswers $ \k (f, (ansA, ansB)) -> do
-      input <- runIO $ getInput k
-      describe ("Day : " <> show k) $ do
-        (actualA, actualB) <- runIO $ f input
-        it (makePartString 1) $ do
-          actualA `shouldBe` ansA
-        it (makePartString 2) $ do
-          actualB `shouldBe` ansB
-    pure ()
+  let funcsAndAnswers = Map.intersectionWith (,) Funcs.funcs answers
+  flip Map.traverseWithKey funcsAndAnswers $ \k (f, (ansA, ansB)) -> do
+    input <- runIO $ getInput k
+    describe ("Day" <> show k) $ do
+      (actualA, actualB) <- runIO $ f input
+      it (show 1) $ do
+        actualA `shouldBe` ansA
+      it (show 2) $ do
+        actualB `shouldBe` ansB
+  pure ()
