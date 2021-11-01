@@ -20,8 +20,8 @@ extra-source-files:
 library
   exposed-modules:
       Day.Day01
+      Funcs
       Input
-      Lib
       Utils
   other-modules:
       Paths_aoc2021

@@ -5,8 +5,8 @@ import Data.IntMap
 import qualified Data.IntMap as Map
 import qualified Data.List.Extra as Map
 import qualified Day.Day01
+import qualified Funcs
 import Input (getInput)
-import Main (funcs)
 import Test.Hspec (describe, hspec, it, runIO, shouldBe)
 import Utils
 
@@ -22,7 +22,7 @@ makePartString part = "Part " <> show part <> " is correct"
 main :: IO ()
 main = hspec $ do
   describe "" $ do
-    let funcsAndAnswers = Map.intersectionWith (,) funcs answers
+    let funcsAndAnswers = Map.intersectionWith (,) Funcs.funcs answers
     flip Map.traverseWithKey funcsAndAnswers $ \k (f, (ansA, ansB)) -> do
       input <- runIO $ getInput k
       describe ("Day : " <> show k) $ do

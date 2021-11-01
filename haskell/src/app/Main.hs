@@ -1,6 +1,5 @@
 module Main (
   main,
-  funcs,
 ) where
 
 import CmdArgs
@@ -8,22 +7,16 @@ import Control.Lens
 import Control.Monad (join, void)
 import Data.Bitraversable (Bitraversable (bitraverse))
 import qualified Data.IntMap as Map
-import Data.IntMap.Strict (IntMap)
 import qualified Data.IntMap.Strict as IntMap
 import qualified Day.Day01
+import qualified Funcs
 import Input (getInput)
 import Options.Applicative (execParser)
 import Utils ((=:))
 
-funcs :: IntMap (String -> IO (String, String))
-funcs =
-  Map.fromList
-    [ 1 =: Day.Day01.run
-    ]
-
 lastDayNr :: Int
 lastDayRunnner :: String -> IO (String, String)
-(lastDayNr, lastDayRunnner) = IntMap.findMax funcs
+(lastDayNr, lastDayRunnner) = Map.findMax Funcs.funcs
 
 runner :: Options -> IO ()
 runner Options{day, input} = do
@@ -32,10 +25,10 @@ runner Options{day, input} = do
         LastDay ->
           lastDayRunnner i >>= void . bitraverse print print
         SpecificDay d ->
-          case IntMap.lookup d funcs of
+          case IntMap.lookup d Funcs.funcs of
             Nothing -> do
               putStrLn $ show d <> " is not implemented."
-              putStrLn $ "Currently implemented : " <> unwords (show <$> IntMap.keys funcs)
+              putStrLn $ "Currently implemented : " <> unwords (show <$> IntMap.keys Funcs.funcs)
             Just dayRunner ->
               dayRunner i >>= traverseOf_ both putStrLn
   inputFile <- case input of
