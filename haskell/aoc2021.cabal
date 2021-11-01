@@ -125,3 +125,58 @@ executable app
     , text
     , unordered-containers
   default-language: Haskell2010
+
+test-suite test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_aoc2021
+  hs-source-dirs:
+      src/test
+  default-extensions:
+      OverloadedStrings
+      ScopedTypeVariables
+      TupleSections
+      ViewPatterns
+      PatternSynonyms
+      DerivingVia
+      DeriveFunctor
+      DeriveTraversable
+      DeriveFoldable
+      DeriveGeneric
+      GeneralizedNewtypeDeriving
+      MultiWayIf
+      GADTs
+      InstanceSigs
+      LambdaCase
+      NamedFieldPuns
+      RankNTypes
+      TypeApplications
+      TypeOperators
+  ghc-options: -main-is Spec
+  build-depends:
+      aoc2021
+    , base >=4.7 && <5
+    , bytestring
+    , comonad
+    , containers
+    , dotenv
+    , extra
+    , foldl
+    , groupBy
+    , haskell-src-meta
+    , hspec
+    , http-conduit
+    , lens
+    , linear
+    , megaparsec
+    , memoize
+    , mtl
+    , optparse-applicative
+    , ordered-containers
+    , safe
+    , split
+    , template-haskell
+    , text
+    , unordered-containers
+  default-language: Haskell2010

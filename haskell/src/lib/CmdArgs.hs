@@ -4,7 +4,7 @@ import qualified Data.Bifunctor as Bifunctor
 import Options.Applicative as Opt
 import Text.Megaparsec as Parsec
 import Text.Read (readMaybe)
-import Utils
+
 
 data Options = Options
   { day :: Day

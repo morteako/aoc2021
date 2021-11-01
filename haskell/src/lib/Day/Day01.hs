@@ -1,6 +1,8 @@
 module Day.Day01 where
 
+import Control.Lens
 import Control.Monad (guard, replicateM)
+import Data.Bitraversable (Bitraversable (bitraverse))
 
 solve :: (Eq a, Num a) => Int -> [a] -> a
 solve n nums = head $ do
@@ -11,8 +13,9 @@ solve n nums = head $ do
 parse :: String -> [Int]
 parse = fmap read . lines
 
-run :: String -> IO ()
+run :: String -> IO (String, String)
 run xs = do
   let parsed = parse xs
-  print $ solve 2 parsed
-  print $ solve 3 parsed
+  let a = solve 2 parsed
+  let b = solve 3 parsed
+  return (show a, show b)

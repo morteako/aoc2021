@@ -65,3 +65,12 @@ executables:
     main:             Main.hs
     dependencies:
       - aoc2021
+
+tests:
+  test:
+    source-dirs:      src/test
+    main:             Spec.hs
+    ghc-options: -main-is Spec
+    dependencies:
+      - aoc2021
+      - hspec
