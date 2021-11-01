@@ -56,16 +56,21 @@ dependencies:
   - haskell-src-meta
   - template-haskell
 
+library:
+    source-dirs: src/lib
+
 executables:
   app:
     source-dirs:      src/app
     main:             Main.hs
+    dependencies:
+      - aoc2021
 
   server:
     source-dirs:      src/server
     main:             Main.hs
     dependencies:
-      # - app
+      - aoc2021
       - servant-server
       - wai
       - warp

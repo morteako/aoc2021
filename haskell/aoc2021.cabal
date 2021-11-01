@@ -17,6 +17,63 @@ build-type:     Simple
 extra-source-files:
     README.md
 
+library
+  exposed-modules:
+      CmdArgs
+      Day.Day01
+      Input
+      Lib
+      Main
+      Utils
+  other-modules:
+      Paths_aoc2021
+  hs-source-dirs:
+      src/lib
+  default-extensions:
+      OverloadedStrings
+      ScopedTypeVariables
+      TupleSections
+      ViewPatterns
+      PatternSynonyms
+      DerivingVia
+      DeriveFunctor
+      DeriveTraversable
+      DeriveFoldable
+      DeriveGeneric
+      GeneralizedNewtypeDeriving
+      MultiWayIf
+      GADTs
+      InstanceSigs
+      LambdaCase
+      NamedFieldPuns
+      RankNTypes
+      TypeApplications
+      TypeOperators
+  build-depends:
+      base >=4.7 && <5
+    , bytestring
+    , comonad
+    , containers
+    , dotenv
+    , extra
+    , foldl
+    , groupBy
+    , haskell-src-meta
+    , http-conduit
+    , lens
+    , linear
+    , megaparsec
+    , memoize
+    , mtl
+    , optparse-applicative
+    , ordered-containers
+    , safe
+    , split
+    , template-haskell
+    , text
+    , unordered-containers
+  default-language: Haskell2010
+
 executable app
   main-is: Main.hs
   other-modules:
@@ -44,7 +101,8 @@ executable app
       TypeApplications
       TypeOperators
   build-depends:
-      base >=4.7 && <5
+      aoc2021
+    , base >=4.7 && <5
     , bytestring
     , comonad
     , containers
@@ -95,7 +153,8 @@ executable server
       TypeApplications
       TypeOperators
   build-depends:
-      base >=4.7 && <5
+      aoc2021
+    , base >=4.7 && <5
     , bytestring
     , comonad
     , containers

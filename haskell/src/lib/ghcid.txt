@@ -1,0 +1,2 @@
+ghcid -W -r --command="stack ghci --ghc-options='-fdefer-type-errors -fno-warn-deferred-type-errors -fno-warn-typed-holes'"
+ghcid -a
