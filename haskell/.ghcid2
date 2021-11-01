@@ -1,0 +1,2 @@
+ghcid --command="stack repl :app" -r%
+ghcid -c="stack ghci test/Spec.hs" -T=main
