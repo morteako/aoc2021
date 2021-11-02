@@ -1,11 +1,15 @@
 package aoc2021.app
 
-fun main(args: Array<String>) {
-    println(1)
-}
+import aoc2021.app.days.day1.solve
+import java.io.File
 
-class Testy {
-    companion object {
-        fun test() = println(":))")
-    }
+val solutions = mapOf(
+    1 to ::solve
+)
+
+fun main(args: Array<String>) {
+    val day = args.firstOrNull()?.toIntOrNull() ?: 1
+    println("Running day : $day")
+    val input = File("../inputs/$day").readText()
+    solutions[day]?.let{ it(input)} ?: throw Error("Missing day $day")
 }
