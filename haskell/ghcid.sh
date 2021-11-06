@@ -1,7 +1,7 @@
 #!/bin/bash
 case "$1" in
     r|R|"")
-    ghcid --command="stack repl :app" -r
+    ghcid --command="stack repl aoc2021:lib :app" -r
     ;;
     t|T)
     case "$2" in
