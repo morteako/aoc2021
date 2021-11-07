@@ -73,6 +73,7 @@ library
 executable app
   main-is: Main.hs
   other-modules:
+      AllSolutions
       CmdArgs
       Input
       Paths_aoc2021

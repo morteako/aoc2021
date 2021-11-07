@@ -2,6 +2,7 @@ module Main (
   main,
 ) where
 
+import AllSolutions
 import qualified AoC2020.Solutions as AoC2020
 import CmdArgs
 import Control.Lens
@@ -15,21 +16,22 @@ import Options.Applicative (execParser)
 import System.TimeIt
 import Utils ((=:))
 
-lastDayNr :: DayVersion
-lastDayRunnner :: String -> IO (String, String)
-(lastDayNr, lastDayRunnner) = Map.findMax AoC2020.solutions
-
 runner :: Options -> IO ()
-runner Options{day, input, year} = do
+runner o@Options{day, input, year = yearEnum} = do
+  let year = getYear yearEnum
+  let solutions = getSolutionsForYear yearEnum
+  let lastDayNr :: DayVersion
+      lastDayRunnner :: String -> IO (String, String)
+      (lastDayNr, lastDayRunnner) = Map.findMax solutions
   let func :: String -> IO ()
       func i = case day of
         LastDay ->
           lastDayRunnner i >>= void . bitraverse print print
         SpecificDay d ->
-          case Map.lookup d AoC2020.solutions of
+          case Map.lookup d solutions of
             Nothing -> do
               putStrLn $ show d <> " is not implemented."
-              putStrLn $ "Currently implemented : " <> unwords (show <$> Map.keys AoC2020.solutions)
+              putStrLn $ "Currently implemented : " <> unwords (show <$> Map.keys solutions)
             Just dayRunner ->
               dayRunner i >>= traverseOf_ both putStrLn
   inputFile <- case input of
@@ -44,9 +46,13 @@ runner Options{day, input, year} = do
       case day of
         LastDay -> getInput year (getDayNum lastDayNr)
         SpecificDay d -> getInput year $ getDayNum d
+  putStr "> "
+  print o
   timeIt $ func inputFile
+
+log s = putStrLn $ "> " <> s
 
 main :: IO ()
 main = do
-  let parser = cmdParser lastDayNr
+  let parser = cmdParser
   execParser parser >>= void . runner
