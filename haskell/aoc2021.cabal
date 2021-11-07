@@ -22,7 +22,6 @@ library
       Day.Day01
       DayVersion
       Funcs
-      Input
       Utils
   hs-source-dirs:
       src/lib
@@ -75,6 +74,7 @@ executable app
   main-is: Main.hs
   other-modules:
       CmdArgs
+      Input
       Paths_aoc2021
   hs-source-dirs:
       src/app
