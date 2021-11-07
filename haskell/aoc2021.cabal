@@ -120,6 +120,7 @@ executable app
     , split
     , template-haskell
     , text
+    , timeit
     , unordered-containers
   default-language: Haskell2010
 

@@ -68,6 +68,7 @@ executables:
     main:             Main.hs
     dependencies:
       - aoc2021
+      - timeit
     when:
       - condition: false
         other-modules: Paths_app

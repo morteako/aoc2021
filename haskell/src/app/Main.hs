@@ -12,6 +12,7 @@ import qualified Day.Day01
 import qualified Funcs
 import Input (getInput)
 import Options.Applicative (execParser)
+import System.TimeIt
 import Utils ((=:))
 
 lastDayNr :: Int
@@ -43,7 +44,7 @@ runner Options{day, input} = do
       case day of
         LastDay -> getInput lastDayNr
         SpecificDay d -> getInput d
-  func inputFile
+  timeIt $ func inputFile
 
 main :: IO ()
 main = do
