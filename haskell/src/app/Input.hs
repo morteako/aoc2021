@@ -21,9 +21,9 @@ import Network.HTTP.Simple (
 import System.Environment (getEnv)
 import System.IO.Error (isDoesNotExistError)
 
-getInput :: Int -> IO String
-getInput (show -> day) = do
-  let path = "../inputs/" <> day
+getInput :: Int -> Int -> IO String
+getInput (show -> year) (show -> day) = do
+  let path = "../inputs/" <> year <> "/" <> day
   file <- safeRead path
   case file of
     Nothing -> do

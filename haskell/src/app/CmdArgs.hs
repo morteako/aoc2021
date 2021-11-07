@@ -9,6 +9,7 @@ import Text.Read (readMaybe)
 data Options = Options
   { day :: Day
   , input :: Input
+  , year :: Int
   }
   deriving (Show)
 
@@ -34,6 +35,18 @@ options =
   Options
     <$> (specificDayInput <|> pure LastDay)
     <*> (stdInput <|> fileInput <|> testInput <|> pure DayInput)
+    <*> yearInput
+
+yearInput :: Parser Int
+yearInput =
+  Opt.option
+    auto
+    ( long "year"
+        <> metavar "YEAR"
+        <> value 2020
+        <> showDefault
+        <> help "Chose which year of AoC"
+    )
 
 specificDayInput :: Parser Day
 specificDayInput =

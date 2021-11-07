@@ -20,7 +20,7 @@ lastDayRunnner :: String -> IO (String, String)
 (lastDayNr, lastDayRunnner) = Map.findMax AoC2020.solutions
 
 runner :: Options -> IO ()
-runner Options{day, input} = do
+runner Options{day, input, year} = do
   let func :: String -> IO ()
       func i = case day of
         LastDay ->
@@ -38,12 +38,12 @@ runner Options{day, input} = do
     File path -> do
       readFile path
     Test -> do
-      let path = "input/" <> show lastDayNr <> "test"
+      let path = "inputs/" <> show year <> "/" <> show lastDayNr <> "test"
       readFile path
     DayInput -> do
       case day of
-        LastDay -> getInput (getDayNum lastDayNr)
-        SpecificDay d -> getInput $ getDayNum d
+        LastDay -> getInput year (getDayNum lastDayNr)
+        SpecificDay d -> getInput year $ getDayNum d
   timeIt $ func inputFile
 
 main :: IO ()
