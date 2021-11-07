@@ -1,4 +1,4 @@
-module Day.Day01 where
+module AoC2020.Day01 where
 
 import Control.Lens
 import Control.Monad (guard, replicateM)

@@ -19,9 +19,9 @@ extra-source-files:
 
 library
   exposed-modules:
-      Day.Day01
+      AoC2020.Day01
+      AoC2020.Solutions
       DayVersion
-      Funcs
       Utils
   hs-source-dirs:
       src/lib
