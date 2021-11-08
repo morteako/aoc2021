@@ -4,6 +4,7 @@ import qualified AoC2015.Day01 as Day01
 import qualified AoC2015.Day02 as Day02
 import qualified AoC2015.Day03 as Day03
 import qualified AoC2015.Day04 as Day04
+import qualified AoC2015.Day05 as Day05
 import Data.Map (Map)
 import qualified Data.Map as Map
 import DayVersion (DayVersion (NormalDay, SpecialVersion))
@@ -16,4 +17,5 @@ solutions =
         , "2" =: Day02.run
         , "3" =: Day03.run
         , "4" =: Day04.run
+        , "5" =: Day05.run
         ]
