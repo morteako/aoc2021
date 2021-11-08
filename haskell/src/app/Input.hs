@@ -22,12 +22,12 @@ import System.Environment (getEnv)
 import System.IO.Error (isDoesNotExistError)
 
 getInput :: Int -> Int -> IO String
-getInput (show -> year) (show -> day) = do
-  let path = "../inputs/" <> year <> "/" <> day
+getInput year (show -> day) = do
+  let path = "../inputs/" <> show year <> "/" <> day
   file <- safeRead path
   case file of
     Nothing -> do
-      input <- fetchInput day
+      input <- fetchInput year day
       BS.writeFile path input
       input ^. unpackedChars . to pure
     Just input -> pure input
@@ -37,9 +37,9 @@ createHeaders = do
   session <- view packedChars <$> getEnv "SESSION"
   pure [("cookie", "session=" <> session)]
 
-makeRequest :: String -> IO Request
-makeRequest day = do
-  let url = "https://adventofcode.com/2020/day/" <> day <> "/input"
+makeRequest :: Int -> String -> IO Request
+makeRequest year day = do
+  let url = "https://adventofcode.com/" <> show year <> "/day/" <> day <> "/input"
   headers <- createHeaders
   pure $
     parseRequest_ url
@@ -54,11 +54,11 @@ safeRead path = (Just <$> readFile path) `catch` handleExists
     | isDoesNotExistError e = return Nothing
     | otherwise = throwIO e
 
-fetchInput :: String -> IO BS.ByteString
-fetchInput day = do
+fetchInput :: Int -> String -> IO BS.ByteString
+fetchInput year day = do
   putStrLn $ "Fetching day : " <> day <> " ....."
   void $ loadFile defaultConfig
-  req <- makeRequest day
+  req <- makeRequest year day
   resp <- httpBS req
   case getResponseStatusCode resp of
     200 -> pure $ getResponseBody resp

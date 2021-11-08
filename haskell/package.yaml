@@ -55,6 +55,8 @@ dependencies:
   - comonad
   - haskell-src-meta
   - template-haskell
+  - cryptohash-md5
+  - base16-bytestring
 
 library:
     source-dirs: src/lib

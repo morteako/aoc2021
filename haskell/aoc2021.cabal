@@ -19,6 +19,11 @@ extra-source-files:
 
 library
   exposed-modules:
+      AoC2015.Day01
+      AoC2015.Day02
+      AoC2015.Day03
+      AoC2015.Day04
+      AoC2015.Solutions
       AoC2020.Day01
       AoC2020.Solutions
       DayVersion
@@ -47,9 +52,11 @@ library
       TypeOperators
   build-depends:
       base >=4.7 && <5
+    , base16-bytestring
     , bytestring
     , comonad
     , containers
+    , cryptohash-md5
     , dotenv
     , extra
     , foldl
@@ -102,9 +109,11 @@ executable app
   build-depends:
       aoc2021
     , base >=4.7 && <5
+    , base16-bytestring
     , bytestring
     , comonad
     , containers
+    , cryptohash-md5
     , dotenv
     , extra
     , foldl
@@ -157,9 +166,11 @@ test-suite test
   build-depends:
       aoc2021
     , base >=4.7 && <5
+    , base16-bytestring
     , bytestring
     , comonad
     , containers
+    , cryptohash-md5
     , dotenv
     , extra
     , foldl
