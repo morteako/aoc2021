@@ -5,10 +5,11 @@ import qualified AoC2015.Day02 as Day02
 import qualified AoC2015.Day03 as Day03
 import qualified AoC2015.Day04 as Day04
 import qualified AoC2015.Day05 as Day05
+import qualified AoC2015.Day06 as Day06
 import Data.Map (Map)
 import qualified Data.Map as Map
-import DayVersion (DayVersion (NormalDay, SpecialVersion))
-import Utils
+import DayVersion (DayVersion)
+import Utils ((=:))
 
 solutions :: Map DayVersion (String -> IO (String, String))
 solutions =
@@ -18,4 +19,5 @@ solutions =
         , "3" =: Day03.run
         , "4" =: Day04.run
         , "5" =: Day05.run
+        , "6" =: Day06.run
         ]

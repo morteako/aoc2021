@@ -57,6 +57,9 @@ dependencies:
   - template-haskell
   - cryptohash-md5
   - base16-bytestring
+  - vector
+  - array
+  - HUnit
 
 library:
     source-dirs: src/lib

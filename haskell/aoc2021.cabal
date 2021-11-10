@@ -24,6 +24,7 @@ library
       AoC2015.Day03
       AoC2015.Day04
       AoC2015.Day05
+      AoC2015.Day06
       AoC2015.Solutions
       AoC2020.Day01
       AoC2020.Solutions
@@ -52,7 +53,9 @@ library
       TypeApplications
       TypeOperators
   build-depends:
-      base >=4.7 && <5
+      HUnit
+    , array
+    , base >=4.7 && <5
     , base16-bytestring
     , bytestring
     , comonad
@@ -76,6 +79,7 @@ library
     , template-haskell
     , text
     , unordered-containers
+    , vector
   default-language: Haskell2010
 
 executable app
@@ -108,7 +112,9 @@ executable app
       TypeApplications
       TypeOperators
   build-depends:
-      aoc2021
+      HUnit
+    , aoc2021
+    , array
     , base >=4.7 && <5
     , base16-bytestring
     , bytestring
@@ -134,6 +140,7 @@ executable app
     , text
     , timeit
     , unordered-containers
+    , vector
   default-language: Haskell2010
 
 test-suite test
@@ -165,7 +172,9 @@ test-suite test
       TypeOperators
   ghc-options: -main-is Spec
   build-depends:
-      aoc2021
+      HUnit
+    , aoc2021
+    , array
     , base >=4.7 && <5
     , base16-bytestring
     , bytestring
@@ -191,4 +200,5 @@ test-suite test
     , template-haskell
     , text
     , unordered-containers
+    , vector
   default-language: Haskell2010
