@@ -7,50 +7,50 @@ import Data.Word (Word16)
 import Test.HUnit ((@=?))
 import Text.Read (readMaybe)
 
+data Instr
+  = And WS WS
+  | Or WS WS
+  | Not WS
+  | LShift WS Int
+  | RShift WS Int
+  | Val WS
+  deriving (Show)
+
 parse :: String -> Map.Map String Instr
 parse = Map.fromList . fmap (f . words) . lines
  where
-  f [x, "AND", y, "->", d] = (d, And (toSI x) (toSI y))
-  f [x, "OR", y, "->", d] = (d, Or (toSI x) (toSI y))
-  f [x, "LSHIFT", i, "->", d] = (d, LShift (toSI x) (read i))
-  f [x, "RSHIFT", i, "->", d] = (d, RShift (toSI x) (read i))
-  f ["NOT", v, "->", x] = (x, Not $ toSI v)
-  f ([v, "->", x]) = (x, Val $ toSI v)
+  f [x, "AND", y, "->", d] = (d, And (toWS x) (toWS y))
+  f [x, "OR", y, "->", d] = (d, Or (toWS x) (toWS y))
+  f [x, "LSHIFT", i, "->", d] = (d, LShift (toWS x) (read i))
+  f [x, "RSHIFT", i, "->", d] = (d, RShift (toWS x) (read i))
+  f ["NOT", v, "->", x] = (x, Not $ toWS v)
+  f ([v, "->", x]) = (x, Val $ toWS v)
   f x = error $ show x
 
-toSI :: String -> SI
-toSI s = case readMaybe @Word16 s of
+type WS = Either Word16 String
+
+toWS :: String -> WS
+toWS s = case readMaybe @Word16 s of
   Nothing -> Right s
   Just i -> Left i
 
 solve :: Map.Map String Instr -> Word16
 solve m = mem "a"
  where
-  mem = memoize f
+  mem = memoize eval
 
-  f :: String -> Word16
-  f target = case Map.lookup (id target) m of
-    Just (And a b) -> ff a .&. ff b
-    Just (Or a b) -> ff a .|. ff b
-    Just (LShift a b) -> shiftL (ff a) b
-    Just (RShift a b) -> shiftR (ff a) b
-    Just (Not a) -> complement $ ff a
-    Just (Val a) -> ff a
+  eval :: String -> Word16
+  eval target = case Map.lookup target m of
+    Just (And a b) -> findValue a .&. findValue b
+    Just (Or a b) -> findValue a .|. findValue b
+    Just (LShift a b) -> shiftL (findValue a) b
+    Just (RShift a b) -> shiftR (findValue a) b
+    Just (Not a) -> complement $ findValue a
+    Just (Val a) -> findValue a
     Nothing -> error (show target)
 
-  ff (Left w) = w
-  ff (Right s) = mem s
-
-type SI = Either Word16 String
-
-data Instr
-  = And SI SI
-  | Or SI SI
-  | Not SI
-  | LShift SI Int
-  | RShift SI Int
-  | Val SI
-  deriving (Show, Eq, Ord)
+  findValue (Left w) = w
+  findValue (Right s) = mem s
 
 run :: String -> IO (String, String)
 run xs = do
@@ -63,3 +63,5 @@ run xs = do
   print resB
   resB @=? 2797
   return mempty
+
+-- 0.00s
