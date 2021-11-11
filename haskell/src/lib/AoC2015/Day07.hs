@@ -54,7 +54,7 @@ solve m = mem "a"
 
 run :: String -> IO (String, String)
 run xs = do
-  let parsed = parse $ const xs "123 -> x\n456 -> y\nx AND y -> d\nx OR y -> e\nx LSHIFT 2 -> f\ny RSHIFT 2 -> g\nNOT x -> h\nNOT y -> i"
+  let parsed = parse xs
   let resA = solve parsed
   print resA
   resA @=? 16076
