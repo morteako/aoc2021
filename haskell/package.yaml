@@ -77,12 +77,3 @@ executables:
     when:
       - condition: false
         other-modules: Paths_app
-
-tests:
-  test:
-    source-dirs:      src/test
-    main:             Spec.hs
-    ghc-options: -main-is Spec
-    dependencies:
-      - aoc2021
-      - hspec
