@@ -28,14 +28,14 @@ solveB = round . f
 
   p = prism' id (\x -> if x == "red" then Nothing else Just x)
 
-run :: String -> IO (String, String)
+run :: String -> IO ()
 run xs = do
   let parsed = parse xs
   let resA = solveA parsed
   print resA
+  resA @=? 156366
   let resB = solveB parsed
   print resB
-
-  return mempty
+  resB @=? 96852
 
 -- c: 0.03s i:0.03s

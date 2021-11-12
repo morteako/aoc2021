@@ -67,7 +67,7 @@ points (V2 x y) (V2 xx yy) = do
   ys <- [y .. yy]
   pure (1000 * xs + ys)
 
-run :: String -> IO (String, String)
+run :: String -> IO ()
 run xs = do
   let parsed = parse xs
   resA <- solveA parsed
@@ -75,7 +75,6 @@ run xs = do
   resB <- solveB parsed
   print resB
   (resA, resB) @?= (543903, 14687245)
-  return mempty
 
 -- O1 : 14.0 s, repl : 37.0 s
 

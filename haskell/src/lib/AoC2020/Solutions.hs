@@ -6,7 +6,7 @@ import qualified Data.Map as Map
 import DayVersion (DayVersion (NormalDay, SpecialVersion))
 import Utils
 
-solutions :: Map DayVersion (String -> IO (String, String))
+solutions :: Map DayVersion (String -> IO ())
 solutions =
     Map.fromList
         [ "1" =: Day01.run

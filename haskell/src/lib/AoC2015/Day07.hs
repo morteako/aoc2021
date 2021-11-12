@@ -52,7 +52,7 @@ solve m = mem "a"
   findValue (Left w) = w
   findValue (Right s) = mem s
 
-run :: String -> IO (String, String)
+run :: String -> IO ()
 run xs = do
   let parsed = parse xs
   let resA = solve parsed
@@ -62,6 +62,5 @@ run xs = do
   let resB = solve reset
   print resB
   resB @=? 2797
-  return mempty
 
 -- 0.00s

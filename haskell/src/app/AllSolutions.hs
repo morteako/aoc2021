@@ -7,7 +7,7 @@ import Data.Map
 import qualified Data.Map as Map
 import DayVersion
 
-getSolutionsForYear :: Year -> Map DayVersion (String -> IO (String, String))
+getSolutionsForYear :: Year -> Map DayVersion (String -> IO ())
 getSolutionsForYear Y2021 = Map.empty
 getSolutionsForYear Y2020 = AoC2020.solutions
 getSolutionsForYear Y2019 = Map.empty

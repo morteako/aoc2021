@@ -37,7 +37,7 @@ count2 code = 6 + foldMap @[] f code
   f (Esc X) = Sum 5
   f (Esc Single) = Sum 4
 
-run :: String -> IO (String, String)
+run :: String -> IO ()
 run xs = do
   let parsed = parse xs
   let resA = solveA parsed
@@ -46,7 +46,5 @@ run xs = do
   let resB = solveB parsed
   print resB
   resB @=? 2074
-
-  return mempty
 
 -- 0.00s

@@ -13,9 +13,10 @@ solve n nums = head $ do
 parse :: String -> [Int]
 parse = fmap read . lines
 
-run :: String -> IO (String, String)
+run :: String -> IO ()
 run xs = do
   let parsed = parse xs
   let a = solve 2 parsed
   let b = solve 3 parsed
-  return (show a, show b)
+  print a
+  print b

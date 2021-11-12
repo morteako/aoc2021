@@ -39,7 +39,7 @@ parse = map f
   f ')' = Down
   f x = error $ pure x
 
-run :: String -> IO (String, String)
+run :: String -> IO ()
 run xs = do
   let parsed = parse xs
   print parsed
@@ -48,4 +48,3 @@ run xs = do
   print a
   print b
   print $ solveBMon parsed
-  return mempty

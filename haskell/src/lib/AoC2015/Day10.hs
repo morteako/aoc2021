@@ -25,7 +25,7 @@ solve n = length . (!! n) . iterate iter
 
 -- solve 40 parsed ?> 492982 =>> print
 
-run :: String -> IO (String, String)
+run :: String -> IO ()
 run xs = do
   print xs
   let parsed = parse $ const xs "111221"
@@ -36,6 +36,5 @@ run xs = do
   let resB = solve 50 parsed
   print resB
   resB @=? 6989950
-  return mempty
 
 --int : c: 0.36 s, i : 17.0s

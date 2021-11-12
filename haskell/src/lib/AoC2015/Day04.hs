@@ -19,11 +19,10 @@ solve zeros prefix = head $ do
   guard (BS.isPrefixOf zeros res)
   pure num
 
-run :: String -> IO (String, String)
+run :: String -> IO ()
 run xs = do
   let parsed = parse xs
   let a = solve "00000" parsed
   let b = solve "000000" parsed
   print a
   print b
-  return mempty

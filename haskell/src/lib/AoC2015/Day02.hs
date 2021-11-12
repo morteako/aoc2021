@@ -28,11 +28,10 @@ parse = fmap (f . splitOn "x") . lines
   f (fmap read -> [l, w, h]) = Lwh l w h
   f xs = error $ show xs
 
-run :: String -> IO (String, String)
+run :: String -> IO ()
 run xs = do
   let parsed = parse xs
   let a = solveA parsed
   let b = solveB parsed
   print a
   print b
-  return mempty

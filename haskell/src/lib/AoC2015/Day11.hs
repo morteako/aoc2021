@@ -25,12 +25,13 @@ next i 'k' = (i, 'm')
 next i 'z' = (i -1, 'a')
 next i c = (i, succ c)
 
-run :: String -> IO (String, String)
+run :: String -> IO ()
 run xs = do
   parsed <- V.thaw $ parse xs
   resA <- V.freeze $ solve parsed
   print resA
   let resB = solve parsed
-  return mempty
+
+  print "todo"
 
 -- 0.00s

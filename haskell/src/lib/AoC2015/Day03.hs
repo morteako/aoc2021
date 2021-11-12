@@ -23,11 +23,10 @@ gen = Set.fromList . scanl (+) (V2 0 0)
 solveB :: [V2 Int] -> Int
 solveB = Set.size . view (both . to gen) . partitionEithers . zipWith ($) (cycle [Left, Right])
 
-run :: String -> IO (String, String)
+run :: String -> IO ()
 run xs = do
   let parsed = parse xs
   let a = solveA parsed
   let b = solveB parsed
   print a
   print b
-  return mempty

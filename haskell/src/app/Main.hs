@@ -21,19 +21,19 @@ runner o@Options{day, input, year = yearEnum} = do
   let year = getYear yearEnum
   let solutions = getSolutionsForYear yearEnum
   let lastDayNr :: DayVersion
-      lastDayRunnner :: String -> IO (String, String)
+      lastDayRunnner :: String -> IO ()
       (lastDayNr, lastDayRunnner) = Map.findMax solutions
   let func :: String -> IO ()
       func i = case day of
         LastDay ->
-          lastDayRunnner i >>= void . bitraverse print print
+          lastDayRunnner i
         SpecificDay d ->
           case Map.lookup d solutions of
             Nothing -> do
               putStrLn $ show d <> " is not implemented."
               putStrLn $ "Currently implemented : " <> unwords (show <$> Map.keys solutions)
             Just dayRunner ->
-              dayRunner i >>= traverseOf_ both putStrLn
+              dayRunner i
   inputFile <- case input of
     StdIn -> do
       getContents

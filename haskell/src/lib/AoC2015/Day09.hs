@@ -27,7 +27,7 @@ solve f m = fromJust $ f folded $ Map.mapMaybeWithKey (\k _ -> findPath k m) m
       Nothing -> Nothing
       Just mm -> f (ifolded . withIndex . to (\(k, v) -> (+ v) <$> findPath k (Map.delete target m)) . _Just) mm
 
-run :: String -> IO (String, String)
+run :: String -> IO ()
 run xs = do
   let parsed = parse xs
   let resA = solve minimumOf parsed
@@ -36,7 +36,5 @@ run xs = do
   let resB = solve maximumOf parsed
   print resB
   resB @=? 736
-
-  return mempty
 
 -- i : 1.7s
