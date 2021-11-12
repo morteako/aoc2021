@@ -4,7 +4,7 @@ import Control.Lens
 import Data.Aeson
 
 -- Plated instance for Value
-import Data.Aeson.Lens ()
+import Data.Aeson.Lens
 import qualified Data.ByteString.Lazy.UTF8 as BLU
 import Data.Data.Lens (biplate)
 import Data.Map (Map)
@@ -28,6 +28,17 @@ solveB = round . f
 
   p = prism' id (\x -> if x == "red" then Nothing else Just x)
 
+--cleaner solution : inspired from https://hao.codes/haskell-advent.html
+
+solveB_ :: Value -> Integer
+solveB_ =
+  round
+    . sumOf
+      ( cosmosOf
+          (plate . filtered (notElemOf (_Object . folded) "red"))
+          . _Number
+      )
+
 run :: String -> IO ()
 run xs = do
   let parsed = parse xs
@@ -37,5 +48,6 @@ run xs = do
   let resB = solveB parsed
   print resB
   resB @=? 96852
+  print $ solveB_ parsed
 
 -- c: 0.03s i:0.03s
