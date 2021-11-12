@@ -60,6 +60,10 @@ dependencies:
   - vector
   - array
   - HUnit
+  - aeson
+  - lens-aeson
+  - utf8-string
+  - scientific
 
 library:
     source-dirs: src/lib

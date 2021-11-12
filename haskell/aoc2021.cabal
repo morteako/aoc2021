@@ -30,6 +30,7 @@ library
       AoC2015.Day09
       AoC2015.Day10
       AoC2015.Day11
+      AoC2015.Day12
       AoC2015.Day26
       AoC2015.Solutions
       AoC2020.Day01
@@ -60,6 +61,7 @@ library
       TypeOperators
   build-depends:
       HUnit
+    , aeson
     , array
     , base >=4.7 && <5
     , base16-bytestring
@@ -74,6 +76,7 @@ library
     , haskell-src-meta
     , http-conduit
     , lens
+    , lens-aeson
     , linear
     , megaparsec
     , memoize
@@ -81,10 +84,12 @@ library
     , optparse-applicative
     , ordered-containers
     , safe
+    , scientific
     , split
     , template-haskell
     , text
     , unordered-containers
+    , utf8-string
     , vector
   default-language: Haskell2010
 
@@ -119,6 +124,7 @@ executable app
       TypeOperators
   build-depends:
       HUnit
+    , aeson
     , aoc2021
     , array
     , base >=4.7 && <5
@@ -134,6 +140,7 @@ executable app
     , haskell-src-meta
     , http-conduit
     , lens
+    , lens-aeson
     , linear
     , megaparsec
     , memoize
@@ -141,10 +148,12 @@ executable app
     , optparse-applicative
     , ordered-containers
     , safe
+    , scientific
     , split
     , template-haskell
     , text
     , timeit
     , unordered-containers
+    , utf8-string
     , vector
   default-language: Haskell2010
