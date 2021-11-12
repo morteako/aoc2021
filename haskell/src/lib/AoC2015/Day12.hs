@@ -3,9 +3,9 @@ module AoC2015.Day12 where
 import Control.Lens
 import Data.Aeson
 
-import Data.Aeson.Lens as AL
+-- Plated instance for Value
+import Data.Aeson.Lens ()
 import qualified Data.ByteString.Lazy.UTF8 as BLU
-import qualified Data.ByteString.Lazy.UTF8 as BSlU
 import Data.Data.Lens (biplate)
 import Data.Map (Map)
 import Data.Maybe (fromJust)
