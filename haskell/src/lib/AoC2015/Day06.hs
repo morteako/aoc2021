@@ -80,3 +80,5 @@ run xs = do
 -- O1 : 14.0 s, repl : 37.0 s
 
 -- strict map : -1.3 s : 12.7 , 33 s
+
+-- vector - c : 0.4s , i : 43 s
