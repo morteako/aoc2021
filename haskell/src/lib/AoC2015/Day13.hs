@@ -41,6 +41,6 @@ run xs = do
 
   let resB = solve ("me" :) parsed
   print resB
-  resA @=? Just 601
+  resB @=? Just 601
 
 -- c : 0.8s , i: 5.7s
