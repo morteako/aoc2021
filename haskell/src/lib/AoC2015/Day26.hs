@@ -1,8 +1,5 @@
 module AoC2015.Day26 where
 
-import Control.Lens
-import Data.Map (Map)
-import Data.Map as Map
 import Test.HUnit ((@=?))
 
 parse = id
