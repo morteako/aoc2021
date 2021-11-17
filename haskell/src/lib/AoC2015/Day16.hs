@@ -16,18 +16,19 @@ parse = fmap (makeSue . fmap f . chunksOf 2 . words . filter (flip notElem (",:"
 
 actualSue :: Map [Char] (Int -> Bool)
 actualSue =
-  Map.fromList
-    [ ("children", (== 3))
-    , ("cats", (== 7))
-    , ("samoyeds", (== 2))
-    , ("pomeranians", (== 3))
-    , ("akitas", (== 0))
-    , ("vizslas", (== 0))
-    , ("goldfish", (== 5))
-    , ("trees", (== 3))
-    , ("cars", (== 2))
-    , ("perfumes", (== 1))
-    ]
+  (==)
+    <$> Map.fromList
+      [ ("children", 3)
+      , ("cats", 7)
+      , ("samoyeds", 2)
+      , ("pomeranians", 3)
+      , ("akitas", 0)
+      , ("vizslas", 0)
+      , ("goldfish", 5)
+      , ("trees", 3)
+      , ("cars", 2)
+      , ("perfumes", 1)
+      ]
 
 solveA :: [(c, Map [Char] Int)] -> c
 solveA = fst . head . filter (isSue . snd)
@@ -58,4 +59,5 @@ run xs = do
   print resB
   resB @=? 323
 
+-- c: 0.00 s
 -- i: 0.01 s
