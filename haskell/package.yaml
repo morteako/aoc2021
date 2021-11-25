@@ -40,6 +40,7 @@ dependencies:
   - containers
   - extra
   - mtl
+  - transformers
   - megaparsec
   - dotenv
   - foldl
@@ -64,6 +65,8 @@ dependencies:
   - lens-aeson
   - utf8-string
   - scientific
+  - stringsearch
+  - arithmoi
 
 library:
     source-dirs: src/lib

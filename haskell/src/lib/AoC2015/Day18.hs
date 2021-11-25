@@ -20,6 +20,7 @@ neighs xy = drop 1 $ do
   y <- [0, (-1), 1]
   pure $ over _x (+ x) $ over _y (+ y) xy
 
+flickLights :: (Ord a, Num a) => a -> a -> Map.Map (V2 a) Bool -> Map.Map (V2 a) Bool
 flickLights stuckX stuckY grid =
   Map.mapWithKey
     ( \k@(V2 x y) v ->

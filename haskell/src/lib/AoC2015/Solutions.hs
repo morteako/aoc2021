@@ -18,6 +18,8 @@ import qualified AoC2015.Day15 as Day15
 import qualified AoC2015.Day16 as Day16
 import qualified AoC2015.Day17 as Day17
 import qualified AoC2015.Day18 as Day18
+import qualified AoC2015.Day19 as Day19
+import qualified AoC2015.Day20 as Day20
 import Data.Map (Map)
 import qualified Data.Map as Map
 import DayVersion (DayVersion)
@@ -44,4 +46,6 @@ solutions =
         , "16" =: Day16.run
         , "17" =: Day17.run
         , "18" =: Day18.run
+        , "19" =: Day19.run
+        , "20" =: Day20.run
         ]
