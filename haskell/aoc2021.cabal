@@ -42,6 +42,28 @@ library
       AoC2015.Day26
       AoC2015.Solutions
       AoC2020.Day01
+      AoC2020.Day02
+      AoC2020.Day03
+      AoC2020.Day04
+      AoC2020.Day05
+      AoC2020.Day06
+      AoC2020.Day07
+      AoC2020.Day08
+      AoC2020.Day09
+      AoC2020.Day10
+      AoC2020.Day11
+      AoC2020.Day12
+      AoC2020.Day13
+      AoC2020.Day14
+      AoC2020.Day15
+      AoC2020.Day16
+      AoC2020.Day17
+      AoC2020.Day18
+      AoC2020.Day18TH
+      AoC2020.Day19
+      AoC2020.Day21
+      AoC2020.Day22
+      AoC2020.Day23
       AoC2020.Solutions
       DayVersion
       Utils
@@ -92,6 +114,7 @@ library
     , mtl
     , optparse-applicative
     , ordered-containers
+    , parsec
     , safe
     , scientific
     , split
@@ -159,6 +182,7 @@ executable app
     , mtl
     , optparse-applicative
     , ordered-containers
+    , parsec
     , safe
     , scientific
     , split

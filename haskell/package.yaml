@@ -67,6 +67,7 @@ dependencies:
   - scientific
   - stringsearch
   - arithmoi
+  - parsec
 
 library:
     source-dirs: src/lib

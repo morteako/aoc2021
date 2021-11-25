@@ -1,8 +1,6 @@
 module AoC2020.Day01 where
 
-import Control.Lens
 import Control.Monad (guard, replicateM)
-import Data.Bitraversable (Bitraversable (bitraverse))
 
 solve :: (Eq a, Num a) => Int -> [a] -> a
 solve n nums = head $ do
@@ -16,7 +14,5 @@ parse = fmap read . lines
 run :: String -> IO ()
 run xs = do
   let parsed = parse xs
-  let a = solve 2 parsed
-  let b = solve 3 parsed
-  print a
-  print b
+  print $ solve 2 parsed
+  print $ solve 3 parsed
