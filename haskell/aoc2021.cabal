@@ -65,6 +65,8 @@ library
       AoC2020.Day22
       AoC2020.Day23
       AoC2020.Solutions
+      AoC2021.Day01
+      AoC2021.Solutions
       DayVersion
       Utils
   hs-source-dirs:
@@ -100,19 +102,16 @@ library
     , comonad
     , containers
     , cryptohash-md5
-    , dotenv
     , extra
     , foldl
     , groupBy
     , haskell-src-meta
-    , http-conduit
     , lens
     , lens-aeson
     , linear
     , megaparsec
     , memoize
     , mtl
-    , optparse-applicative
     , ordered-containers
     , parsec
     , safe

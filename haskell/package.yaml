@@ -34,40 +34,37 @@ default-extensions:
 
 dependencies:
   - base >= 4.7 && < 5
-  - http-conduit
   - lens
   - bytestring
-  - containers
-  - extra
-  - mtl
-  - transformers
-  - megaparsec
-  - dotenv
-  - foldl
   - text
+  - utf8-string
+  - base16-bytestring
+  - stringsearch
+  - megaparsec
+  - parsec
+  - transformers
+  - mtl
+  - comonad
+  - containers
   - ordered-containers
   - unordered-containers
-  - optparse-applicative
+  - foldl
+  - extra
   - safe
   - split
   - groupBy
   - memoize
   - linear
-  - comonad
   - haskell-src-meta
   - template-haskell
-  - cryptohash-md5
-  - base16-bytestring
   - vector
   - array
   - HUnit
   - aeson
   - lens-aeson
-  - utf8-string
-  - scientific
-  - stringsearch
   - arithmoi
-  - parsec
+  - scientific
+  - cryptohash-md5
 
 library:
     source-dirs: src/lib
@@ -82,6 +79,9 @@ executables:
     dependencies:
       - aoc2021
       - timeit
+      - http-conduit
+      - dotenv
+      - optparse-applicative
     when:
       - condition: false
         other-modules: Paths_app

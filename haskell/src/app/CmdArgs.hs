@@ -55,7 +55,7 @@ yearInput =
       auto
       ( long "year"
           <> metavar "YEAR"
-          <> value 2020
+          <> value 2021
           <> showDefault
           <> help "Chose which year of AoC"
       )
