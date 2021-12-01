@@ -1,11 +1,13 @@
 module Utils where
 
-import Data.Coerce
-import Data.Foldable
+import Data.Foldable (Foldable (foldl'))
 import qualified Data.Map.Lazy as Map
 import Data.Maybe (fromMaybe)
 import Data.Semigroup (Sum (Sum, getSum))
 import GHC.Base (Semigroup)
+
+readInt :: String -> Int
+readInt = read
 
 (?:) :: Maybe c -> c -> c
 (?:) = flip fromMaybe

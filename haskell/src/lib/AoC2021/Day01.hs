@@ -1,18 +1,28 @@
 module AoC2021.Day01 where
 
-import Control.Monad (guard, replicateM)
+import Test.HUnit ((@=?))
 
 parse :: String -> [Int]
 parse = fmap (read @Int) . lines
 
+countIncreases :: [Int] -> Int
+countIncreases = length . filter (uncurry (<)) . (zip <*> tail)
+
 solveA :: [Int] -> Int
-solveA = length . filter (uncurry (<)) . (zip <*> tail)
+solveA = countIncreases
 
 solveB :: [Int] -> Int
-solveB = length . filter (uncurry (<)) . drop 3 . (zip <*> tail) . fmap (sum . take 3) . scanl (flip (:)) []
+solveB = countIncreases . (fmap (sum . take 3) . drop 3 . scanl (flip (:)) [])
+
+slidingTriples :: [a] -> [[a]]
+slidingTriples = drop 3 . scanl (flip (:)) []
 
 run :: String -> IO ()
 run xs = do
   let parsed = parse xs
-  print $ solveA parsed
-  print $ solveB parsed
+  let resA = solveA parsed
+  print resA
+  resA @=? 1715
+  let resB = solveB parsed
+  print resB
+  resB @=? 1739
