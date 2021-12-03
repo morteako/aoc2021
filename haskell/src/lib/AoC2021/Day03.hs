@@ -1,29 +1,40 @@
 module AoC2021.Day03 where
 
-import Control.Lens
+import Data.Char (digitToInt)
+import Data.Digits (unDigits)
+import Data.List (sortOn, transpose)
 import qualified Data.Map as Map
-import Data.Semigroup (Endo (Endo, appEndo), Sum (Sum))
-
-import Data.Char
-import Data.Digits
-import Data.Foldable (Foldable (toList))
-import Data.List
-import qualified Data.List as L
-import Data.Word
-import Numeric as N
+import Data.Tuple (swap)
 import Test.HUnit ((@=?))
 
+parse :: String -> [[Int]]
 parse = fmap (fmap digitToInt) . lines
 
--- occs :: [Char] -> Map.Map Char Int
-occs = toList . ifoldMap (\k v -> Map.singleton v k) . Map.fromListWith (+) . map (,1)
+occs :: [Int] -> [(Int, Integer)]
+occs = sortOn swap . Map.toList . Map.fromListWith (+) . map (,1)
 
-solve = product . fmap (unDigits 2) . transpose . fmap occs . transpose
+solveA :: [[Int]] -> Int
+solveA = product . fmap (unDigits 2) . transpose . fmap (fmap fst . occs) . transpose
+
+match :: ([(Int, Integer)] -> (Int, Integer)) -> Int -> [[Int]] -> [[Int]]
+match f i xs = filter (\x -> x !! i == t) xs
  where
-  f [x, y] = x
+  t = fst . f . occs . map (!! i) $ xs
+
+go :: ([(Int, Integer)] -> (Int, Integer)) -> Int -> [[Int]] -> [Int]
+go f i [x] = x
+go f i xs = go f (i + 1) (match f i xs)
+
+solveB :: [[Int]] -> Int
+solveB xs = product . fmap (unDigits 2) $ [go (!! 0) 0 xs, go (!! 1) 0 xs]
 
 run :: String -> IO ()
 run xs = do
   let parsed = parse xs
-  let resA = solve parsed
+  let resA = solveA parsed
   print resA
+  resA @=? 2498354
+
+  let resB = solveB $ parsed
+  print resB
+  resB @=? 3277956
