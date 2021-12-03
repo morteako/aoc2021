@@ -40,6 +40,7 @@ createHeaders = do
 makeRequest :: Int -> String -> IO Request
 makeRequest year day = do
   let url = "https://adventofcode.com/" <> show year <> "/day/" <> day <> "/input"
+  print url
   headers <- createHeaders
   pure $
     parseRequest_ url

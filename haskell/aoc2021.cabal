@@ -66,6 +66,8 @@ library
       AoC2020.Day23
       AoC2020.Solutions
       AoC2021.Day01
+      AoC2021.Day02
+      AoC2021.Day03
       AoC2021.Solutions
       DayVersion
       Utils
@@ -102,6 +104,7 @@ library
     , comonad
     , containers
     , cryptohash-md5
+    , digits
     , extra
     , foldl
     , groupBy
@@ -167,6 +170,7 @@ executable app
     , comonad
     , containers
     , cryptohash-md5
+    , digits
     , dotenv
     , extra
     , foldl

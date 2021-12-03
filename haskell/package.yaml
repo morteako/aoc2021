@@ -65,6 +65,7 @@ dependencies:
   - arithmoi
   - scientific
   - cryptohash-md5
+  - digits
 
 library:
     source-dirs: src/lib
