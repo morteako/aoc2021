@@ -70,6 +70,7 @@ library
       AoC2021.Day03
       AoC2021.Day04
       AoC2021.Day06
+      AoC2021.Day07
       AoC2021.Solutions
       DayVersion
       Utils
