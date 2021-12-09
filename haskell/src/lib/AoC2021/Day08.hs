@@ -7,103 +7,85 @@ module AoC2021.Day08 where
 import Control.Arrow
 import Data.Foldable
 
-import Data.List.Extra
+import Data.List (permutations, sort)
+import Data.List.Extra (groupOn, sortOn)
+import Data.List.Split (splitOn)
+import Data.Map (Map)
 import qualified Data.Map as Map
-import Data.Maybe
+import Data.Maybe (mapMaybe)
 import Data.Semigroup
+import Data.Set (Set)
 import qualified Data.Set as Set
-import Debug.Trace
-import Control.Monad
+import Test.HUnit ((@=?))
 
--- solveA xs = foldMap (Sum . length . id . filter (\x -> length x `elem` uniqLengths) . fmap id . snd) xs
---  where
-
--- uniqLengths = fmap (length . (digits Map.!)) [1, 4, 7, 8]
+solveA :: [(a, [String])] -> Sum Int
+solveA = foldMap (Sum . length . filter (\x -> Map.member (length x) uniqLengthss) . snd)
+ where
+  uniqLengthss = Map.filter (\x -> length x == 1) lendigits
 
 parse :: String -> [([String], [String])]
-parse = fmap (f . fmap words . splitOn "|") . lines
+parse = fmap (findNumber . fmap words . splitOn "|") . lines
  where
-  f [x, y] = (x, y)
-  f xs = error $ show xs
+  findNumber [x, y] = (x, y)
+  findNumber xs = error $ show xs
 
-(#) :: Eq a => [a] -> [a] -> [a]
-(#) = intersect
+digs :: [String]
+digs = ["abcefg", "cf", "acdeg", "acdfg", "bcdf", "abdfg", "abdefg", "acf", "abcdefg", "abcdfg"]
 
-type S = Set.Set Char
+indDigs :: Map String Char
+indDigs = Map.fromList $ flip zip ['0' ..] digs
 
-tra = id
+unionsIntersect :: [Map Char (Set Char)] -> Map Char (Set Char)
+unionsIntersect = Map.unionsWith (Set.intersection)
 
-digs = ["abcefg" :: String, "cf", "acdeg", "acdfg", "bcdf", "abdfg", "abdefg", "acf", "abcdefg", "abcdfg"]
-
-indDigs = Map.fromList $ flip zip ['0'..] ["abcefg" :: String, "cf", "acdeg", "acdfg", "bcdf", "abdfg", "abdefg", "acf", "abcdefg", "abcdfg"]
-
+lendigits :: Map Int [Set Char]
 lendigits =
   Map.fromListWith (++) $ fmap (length &&& (: []) . Set.fromList) digs
 
--- poss :: [String] -> [Map.Map Char S]
--- poss strGroup = do
---   let l = length $ head strGroup
---   str <- strGroup
---   tra $ fmap (\x -> Map.fromList $ fmap (\c -> (c, x)) str) $ tra (lendigits Map.! length str)
+solveB :: [([String], [String])] -> Int
+solveB = sum . map findNumber
 
--- figureDec xs = fmap (Map.unionsWith (Set.intersection)) $ sequenceA $ fmap poss xs
-
-figureDec2 xs = fmap (Map.unionsWith (Set.intersection)) $ sequenceA $ fmap poss2 xs
-
--- solveB = fmap (makePretty . sort) . mapMaybe (check . tra . figureDec . tra . fst)
--- figRec m (gs:gss) = 
-
--- solveBTessts :: [([String], [String])] -> _
-solveBTessts = sum . map f
-  where
-   
--- f :: ([String], [String]) -> [String]
-f :: ([String], [String]) -> Int
-f (xs,digs) = read . map (indDigs Map.!) $ fmap (sort . fmap (lookDig Map.!)) digs
-  where
-    -- getC = fmap (indDigs Map.!) 
-    lookDig = head . (fmap) (Map.fromList . makePretty) . id . mapMaybe check . figureDec2 . tra . groupOn length . sortOn length $ xs
-    -- findDigit
-
-makePretty = fmap (fmap f) . sort
+findNumber :: ([String], [String]) -> Int
+findNumber (encodedDigits, digs) = combineNumbers $ fmap decode digs
  where
-  f s = if Set.size s == 1 then Set.findMin s else error $ show s
+  combineNumbers = read . map (indDigs Map.!)
+  decode = sort . fmap (digitMapping Map.!)
+  groupLength = groupOn length . sortOn length
+  digitMapping =
+    head
+      . fmap (Map.fromList . fmap (fmap Set.findMin))
+      . mapMaybe topsort
+      . combineMappings
+      . groupLength
+      $ encodedDigits
 
+combineMappings :: [[String]] -> [Map Char (Set Char)]
+combineMappings = fmap unionsIntersect . traverse possibleMappings
+ where
+  possibleMappings :: [String] -> [Map Char (Set Char)]
+  possibleMappings strGroup = fmap unionsIntersect $ do
+    p <- permutations strGroup
+    pure $ do
+      str <- strGroup
+      zipWith (\cur target -> Map.fromList $ fmap (\c -> (c, target)) cur) p (lendigits Map.! length (head strGroup))
 
-poss2 strGroup = fmap (Map.unionsWith (Set.intersection)) $ do
-  p <- permutations strGroup
-  let l = length $ head strGroup
-  pure $ do
-    str <- strGroup
-    zipWith (\cur target -> Map.fromList $ fmap (\c -> (c, target)) cur) p (lendigits Map.! l)
-    -- tra $ fmap (\x -> (str,x)) $ tra (lendigits Map.! l)
-
-check :: Map.Map Char S -> Maybe [(Char, S)]
-check xs
-  -- | trace (": " ++ show xs) False = Nothing
+topsort :: Map Char (Set Char) -> Maybe [(Char, Set Char)]
+topsort xs
   | Map.null xs = Just []
   | Map.null ones = Nothing
-  | otherwise = fmap (os ++) $ check $ foldl' (\acc o -> fmap (flip Set.difference o) acc) rest $ fmap snd os
+  | otherwise = fmap (os ++) $ topsort $ foldl' (\acc o -> fmap (flip Set.difference o) acc) rest $ fmap snd os
  where
   (ones, rest) = Map.partition (\x -> length x == 1) xs
   os = Map.toList ones
 
-(%) = (,)
-
 run :: String -> IO ()
 run xs = do
-  -- let xs = "acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab |cdfeb fcadb cdfeb cdbaf"
-
   let parsed = parse xs
-  -- print parsed
 
-  -- let resA = solveA parsed
-  -- print resA
-  print lendigits
+  let resA = solveA parsed
+  print resA
+  resA @=? 303
 
-  -- print $ poss "abcde"
-
-  -- print $ check $ Map.fromList ['a' % "abc", 'b' % "b", 'c' % "bc"]
-
-  let resB = solveBTessts parsed
+  let resB = solveB parsed
   print resB
+  resB @=? 961734
