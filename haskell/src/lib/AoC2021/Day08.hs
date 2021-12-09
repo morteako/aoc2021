@@ -1,6 +1,6 @@
--- {-# OPTIONS_GHC -Wno-deferred-out-of-scope-variables #-}
--- {-# OPTIONS_GHC -fdefer-type-errors #-}
--- {-# OPTIONS_GHC -fno-warn-deferred-type-errors #-}
+{-# OPTIONS_GHC -Wno-deferred-out-of-scope-variables #-}
+{-# OPTIONS_GHC -fdefer-type-errors #-}
+{-# OPTIONS_GHC -fno-warn-deferred-type-errors #-}
 
 module AoC2021.Day08 where
 
