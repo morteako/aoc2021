@@ -26,11 +26,11 @@ check ps (c : cs)
 check (p : ps) (c : cs) | p == c = check ps cs
 check _ (c : cs) = Corrupted c
 
-solveA :: [String] -> Sum Integer
+solveA :: [String] -> Integer
 solveA = sumOf (each . to (check "") . _Corrupted . to score)
  where
   score x = case x of
-    ')' -> Sum 3
+    ')' -> 3
     ']' -> 57
     '}' -> 1197
     '>' -> 25137
