@@ -1,10 +1,12 @@
 module Utils where
 
 import Data.Foldable (Foldable (foldl'))
+import Data.List.Extra hiding (foldl1')
 import qualified Data.Map.Lazy as Map
 import Data.Maybe (fromMaybe)
 import Data.Semigroup (Sum (Sum, getSum))
 import GHC.Base (Semigroup)
+import Linear
 
 readInt :: String -> Int
 readInt = read
@@ -43,3 +45,11 @@ foldl1' f xs =
                 Nothing -> y
                 Just x -> f x y
             )
+
+printMap m = do
+    putStrLn "--------"
+    let xs = Map.toList m
+    let g = groupOn (\(V2 x _, _) -> x) xs
+    let gg = fmap (fmap snd) g
+    mapM_ print gg
+    putStrLn ""

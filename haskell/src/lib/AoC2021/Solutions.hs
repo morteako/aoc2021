@@ -10,6 +10,7 @@ import qualified AoC2021.Day07
 import qualified AoC2021.Day08
 import qualified AoC2021.Day09
 import qualified AoC2021.Day10
+import qualified AoC2021.Day11
 import Data.Map (Map)
 import qualified Data.Map as Map
 import DayVersion (DayVersion (NormalDay, SpecialVersion))
@@ -27,7 +28,7 @@ solutions =
     , "08" =: AoC2021.Day08.run
     , "09" =: AoC2021.Day09.run
     , "10" =: AoC2021.Day10.run
-    -- , "11" =: AoC2021.Day11.run
+    , "11" =: AoC2021.Day11.run
     -- , "12" =: AoC2021.Day12.run
     -- , "13" =: AoC2021.Day13.run
     -- , "14" =: AoC2021.Day14.run
