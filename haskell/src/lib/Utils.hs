@@ -5,8 +5,9 @@ import Data.List.Extra hiding (foldl1')
 import qualified Data.Map.Lazy as Map
 import Data.Maybe (fromMaybe)
 import Data.Semigroup (Sum (Sum, getSum))
+import Debug.Trace
 import GHC.Base (Semigroup)
-import Linear
+import Linear (V2 (V2))
 
 readInt :: String -> Int
 readInt = read
@@ -53,3 +54,5 @@ printMap m = do
     let gg = fmap (fmap snd) g
     mapM_ print gg
     putStrLn ""
+
+traceLab s x = trace (s ++ ": " ++ show x) x
