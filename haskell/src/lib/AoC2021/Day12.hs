@@ -13,16 +13,7 @@ import Test.HUnit ((@=?))
 
 data S = Start | End | Named String deriving (Eq, Ord)
 
-instance Show S where
-  show Start = "start"
-  show End = "end"
-  show (Named str) = str
-
 data Cave = Big String | Small S deriving (Eq, Ord)
-
-instance Show Cave where
-  show (Big s) = s
-  show (Small s) = show s
 
 parse :: String -> Map Cave [Cave]
 parse = Map.fromListWith (++) . fmap (over _2 (: [])) . concatMap (swappy . toTup . fmap f . splitOn "-") . lines
