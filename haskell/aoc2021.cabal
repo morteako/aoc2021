@@ -78,6 +78,8 @@ library
       AoC2021.Day12
       AoC2021.Day13
       AoC2021.Day14
+      AoC2021.Day15
+      AoC2021.Day16
       AoC2021.Solutions
       DayVersion
       Utils
@@ -116,9 +118,11 @@ library
     , cryptohash-md5
     , digits
     , extra
+    , fgl
     , foldl
     , groupBy
     , haskell-src-meta
+    , heaps
     , lens
     , lens-aeson
     , linear
@@ -183,9 +187,11 @@ executable app
     , digits
     , dotenv
     , extra
+    , fgl
     , foldl
     , groupBy
     , haskell-src-meta
+    , heaps
     , http-conduit
     , lens
     , lens-aeson

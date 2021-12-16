@@ -66,6 +66,8 @@ dependencies:
   - scientific
   - cryptohash-md5
   - digits
+  - heaps 
+  - fgl
 
 library:
     source-dirs: src/lib
