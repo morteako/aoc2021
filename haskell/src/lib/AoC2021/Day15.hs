@@ -39,12 +39,12 @@ makeGrid5 m = Map.unions $ fmap f factors
  where
   f fact@(V2 x y) = fmap (times (x + y) incMod10) $ Map.mapKeys (\k -> k + (lim * fact)) m
   lim = (+ 1) $ fst $ Map.findMax m
+  factors = do
+    x <- [0 .. 4]
+    y <- [0 .. 4]
+    [V2 x y]
 
-factors = do
-  x <- [0 .. 4]
-  y <- [0 .. 4]
-  [V2 x y]
-
+solve :: (t -> Map.Map (V2 Int) Int) -> t -> Maybe Int
 solve f grid = spLength start dest gr
  where
   (gr, start, dest) = makeGraph $ f grid
