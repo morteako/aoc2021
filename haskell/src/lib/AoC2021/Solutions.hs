@@ -17,6 +17,7 @@ import qualified AoC2021.Day14
 import qualified AoC2021.Day15
 import qualified AoC2021.Day16
 import qualified AoC2021.Day17
+import qualified AoC2021.Day18
 
 import Data.Map (Map)
 import qualified Data.Map as Map
@@ -42,7 +43,7 @@ solutions =
     , "15" =: AoC2021.Day15.run
     , "16" =: AoC2021.Day16.run
     , "17" =: AoC2021.Day17.run
-    -- , "18" =: AoC2021.Day18.run
+    , "18" =: AoC2021.Day18.run
     -- , "19" =: AoC2021.Day19.run
     -- , "21" =: AoC2021.Day21.run
     -- , "22" =: AoC2021.Day22.run
