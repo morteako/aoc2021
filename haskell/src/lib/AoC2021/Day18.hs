@@ -1,147 +1,90 @@
 module AoC2021.Day18 where
 
-import Control.Lens (both, over)
 import Data.Char
 
-import Control.Monad.State
+import Control.Monad
 import Data.List (stripPrefix, uncons)
-import Data.List.Extra
-import Data.List.Split (splitOn)
-import Data.Maybe (fromJust, mapMaybe)
-import Debug.Trace
 import Test.HUnit ((@=?))
-import qualified Text.Megaparsec as P
-import qualified Text.Megaparsec.Char as P
-import Text.Read (readMaybe)
 import Utils (readInt)
 
-toTup [x, y] = (x, y)
-toTup xs = error $ show xs
+data SnailFishP = Leaf Int | Node (SnailFishP, SnailFishP) deriving (Show, Read)
+data SnailFish = L Int | N SnailFish SnailFish deriving (Read, Eq)
 
-data SnailFish = Leaf Int | Node (SnailFish, SnailFish) deriving (Show, Read)
+simp :: SnailFishP -> SnailFish
+simp (Leaf i) = L i
+simp (Node (a, b)) = N (simp a) (simp b)
 
-newtype Depth = Depth Int deriving (Num, Eq, Ord)
+parse :: String -> [SnailFish]
+parse = fmap parseOne . lines
 
-data Snail = Snail Id Depth Int Id deriving (Show)
-
-newtype Id = Id [Int]
-
-instance Show Id where
-  show (Id xs) = foldMap show xs
-
-instance Show Depth where
-  show (Depth d) = "d" ++ show d
-
-simplify n (Leaf i) = [(Depth n, i)]
-simplify (succ -> n) (Node (l, r)) = simplify n l ++ simplify n r
-
-newId :: State Int Id
-newId = do
-  modify (+ 1)
-  fmap (Id . pure) get
-
-simplifySnail :: Id -> Int -> SnailFish -> State Int [Snail]
-simplifySnail p n (Leaf i) = do
-  ni <- newId
-  pure [Snail ni (Depth n) i p]
-simplifySnail p (succ -> n) (Node (l, r)) = do
-  i <- newId
-  ls <- simplifySnail i n l
-  rs <- simplifySnail i n r
-  pure $ ls ++ rs
-
-simplifyAll = flip evalState 0 . traverse @[] startSimpl
- where
-  startSimpl xs = do
-    ni <- newId
-    simplifySnail ni 0 xs
-
--- parse :: String -> [SnailFish]
-parse = simplifyAll . fmap parseOne . lines
-
-parseOne = read @SnailFish . id . foldMap f
+parseOne :: [Char] -> SnailFish
+parseOne = simp . read @SnailFishP . foldMap f
  where
   f '[' = "Node("
   f ']' = ")"
   f d | isDigit d = "Leaf " ++ pure d
   f x = [x]
 
-splittable (Snail _ _ i _) = i >= 10
+splitP :: SnailFish -> Maybe SnailFish
+splitP (L i) | i >= 10 = let (d, n) = quotRem i 2 in Just $ N (L d) (L $ d + n)
+splitP (L i) = Nothing
+splitP (N l r) = case splitP l of
+  Nothing -> N l <$> splitP r
+  Just l -> Just $ N l r
 
-splitIt (Snail i ((+ 1) -> d) x p) = let (di, n) = quotRem x 2 in [Snail (icons 0 i) d di p, Snail (icons 1 i) d (di + n) p]
-
-icons x (Id xs) = Id $ x : xs
-
-explodable (Depth n, _) = n >= 5
-
-addFirst :: Int -> [Snail] -> [Snail]
-addFirst n (Snail i d x p : rest) = Snail i d (x + n) p : rest
-addFirst n [] = []
-
-addFirstRev :: Int -> [Snail] -> [Snail]
-addFirstRev n xs = case unsnoc xs of
-  Nothing -> []
-  Just (xs, Snail i d x p) -> xs ++ [Snail i d (x + n) p]
-
-splitPair xs =
-  let (l, r) = break splittable xs
-   in case r of
-        [] -> Nothing
-        (r : rs) -> Just $ l ++ splitIt r ++ rs
-
-explodePair xs =
-  let (l, r) = breakExplo xs
-   in case r of
-        [] -> Nothing
-        [x] -> error $ show x
-        (Snail i d v p : Snail i' d' v' p' : rs) ->
-          Just $
-            addFirstRev v l ++ [Snail i (d -1) 0 p] ++ addFirst v' rs
-
-breakExplo = go []
+findExplo :: SnailFish -> Either SnailFish SnailFish
+findExplo s = case indexSnail 0 0 s of
+  Left n -> Left s
+  Right (target, tl, tr) -> Right $ snd $ fixSnail 0 s
+   where
+    fixSnail i l@(L li)
+      | i == target -1 = (i + 1, L (li + tl))
+      | i == target + 1 = (i + 1, L (li + tr))
+      | i == target = error "WTF"
+      | otherwise = (i + 1, L li)
+    fixSnail i q@(N (L l) (L r)) | i == target = (i + 1, L 0)
+    fixSnail i (N l r) = case fixSnail i l of
+      (i, ll) -> case fixSnail i r of (i, rr) -> (i, N ll rr)
  where
-  go xs [] = (reverse xs, [])
-  go xs [y] = (reverse (y : xs), [])
-  go xs ys'@(y : y' : ys) = if isExploPair y y' then (reverse xs, ys') else go (y : xs) (y' : ys)
+  indexSnail i _ (L _) = Left $ i + 1
+  indexSnail i n (N (L l) (L r)) = if n >= 4 then Right (i, l, r) else Left $ i + 2
+  indexSnail i n (N l r) =
+    case indexSnail i (n + 1) l of
+      Left i -> indexSnail i (n + 1) r
+      r -> r
 
-isExploPair (Snail _ d _ _) (Snail _ d' _ _) = d >= 5 && d == d'
-
-incDepth (Snail i d x p) = (Snail i (d + 1) x p)
-
-addPair l r = untilRight (fmap incDepth $ l ++ r)
-
+untilRight :: SnailFish -> SnailFish
 untilRight x =
-  case explodePair x of
-    Just r -> untilRight r
-    Nothing -> maybe x untilRight $ splitPair x
+  case findExplo x of
+    Right r -> untilRight r
+    Left l -> maybe x (untilRight) $ splitP x
 
--- solveA' = map (addAll 7)
+addPair :: SnailFish -> SnailFish -> SnailFish
+addPair x y = untilRight $ N x y
 
-solveA = foldl1 addPair
+solveA :: [SnailFish] -> Int
+solveA = magnitude . foldl1 addPair
 
-(#) = (,)
+solveB :: [SnailFish] -> Int
+solveB xs = maximum $
+  fmap magnitude $ do
+    x <- xs
+    y <- xs
+    guard (x /= y)
+    pure $ addPair x y
 
--- getPairs = foldMap (chunksOf 2) . groupOn (\(Depth x, _) -> x)
-
-data DPair = DPair Depth Int Int
+magnitude :: SnailFish -> Int
+magnitude (L i) = i
+magnitude (N l r) = 3 * magnitude l + 2 * magnitude r
 
 run :: String -> IO ()
 run xs = do
   let parsed = parse xs
-  -- print parsed
+
   let resA = solveA parsed
-  -- mapM_ print $ solveA' parsed
   print resA
+  resA @=? 4088
 
--- print $ solveA $ parse "[1,1]\n[2,2]\n[3,3]\n[4,4]"
-
--- print $ splitPair [0 # 10, 0 # 12]
--- print $ splitPair [0 # 5, 1 # 12, 2 # 9]
-
--- print $ explodePair $ parseOne "[[[[[9,8],1],2],3],4]"
--- print $ explodePair $ parseOne "[[6,[5,[4,[3,2]]]],1]"
--- print $ explodePair $ parseOne "[[3,[2,[1,[7,3]]]],[6,[5,[4,[3,2]]]]]"
-
--- print $ addPair (parseOne "[[[[4,3],4],4],[7,[[8,4],9]]]") (parseOne "[1,1]")
-
--- print $ splitPair $ fromJust $ explodePair $ fromJust $ explodePair $ parseOne "[[[[[4,3],4],4],[7,[[8,4],9]]],[1,1]]"
+  let resB = solveB parsed
+  print resB
+  resB @=? 4536
