@@ -15,9 +15,7 @@ parse = Map.fromListWith (<>) . concatMap (f . words) . lines
   f [x, "to", y, "=", i] = [(x, Map.singleton y (read @Int i)), (y, Map.singleton x (read @Int i))]
   f xs = error $ show xs
 
-type FoldCombinator = forall f. Foldable f => Fold (f Int) Int -> (f Int) -> Maybe Int
 
-solve :: FoldCombinator -> Map [Char] (Map [Char] Int) -> Int
 solve f m = fromJust $ f folded $ Map.mapMaybeWithKey (\k _ -> findPath k m) m
  where
   findPath :: String -> Map [Char] (Map [Char] Int) -> Maybe Int

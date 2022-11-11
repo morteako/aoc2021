@@ -7,21 +7,21 @@ packages:
 - completed:
     hackage: groupBy-0.1.0.0@sha256:9bd0c5e6bbfaf793f6e816a072bcb085dba1149bf282e998567eaaed8d0efec4,1720
     pantry-tree:
-      size: 450
       sha256: 40726b0c6e42fc119f6c5a413fd81353cd69e3fd8893fec6e9ff50ccfc51172c
+      size: 450
   original:
     hackage: groupBy-0.1.0.0
 - completed:
     hackage: memoize-1.0.0@sha256:a74838307680c23eb563d891da3293d04b2661235a91448464864720ecda38da,1882
     pantry-tree:
-      size: 586
       sha256: da9be427a268417fe06e3960fe116123e6cdd4b9a108e47cf0f371bcc71e8d85
+      size: 586
   original:
     hackage: memoize-1.0.0
 snapshots:
 - completed:
-    size: 586296
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/18.yaml
-    sha256: 63539429076b7ebbab6daa7656cfb079393bf644971156dc349d7c0453694ac2
+    sha256: ae630fb633086fb5128ec338a40a60c0f2b0a0f1bcfa9920c15855df2001338e
+    size: 619204
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/19/32.yaml
   original:
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/18.yaml
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/19/32.yaml
