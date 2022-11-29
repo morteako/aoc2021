@@ -11,6 +11,8 @@ category:            Web
 extra-source-files:
 - README.md
 
+language: GHC2021
+
 default-extensions:
   - OverloadedStrings
   - ScopedTypeVariables
